@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<style>
+    * {
+        border: 0;
+        outline: 0;
+        margin: 0;
+        padding: 0;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    }
+
+    body {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    #main-body {
+        display: flex;
+        width: -webkit-fill-available;
+        flex-wrap: wrap;
+        align-items: center;
+    }
+
+    .sidebar {
+        top: 60px;
+        width: 30%;
+        height: -webkit-fill-available;
+        background: #7000ff;
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .userOptions div {
+        margin: 15px;
+        width: -webkit-fill-available;
+        padding: 10px;
+        border-radius: 7px;
+        font-size: 1em;
+        background-color: #7000ff;
+        color: white;
+        border: none;
+        cursor: pointer;
+        transition: all 0.6s;
+    }
+
+    .userOptions div:hover {
+        background-color: #ebe3f5;
+        color: #290557;
+        transition: all 0.6s;
+    }
+
+    .userIcon {
+        display: block;
+        margin: 0 auto;
+        padding: 58px 0 0 0;
+        max-width: 66px;
+        max-height: 66px;
+    }
+
+    .userName {
+        color: white;
+        font-style: italic;
+        font-family: Arial, Helvetica, sans-serif;
+        padding: 19px 0;
+    }
+
+    #dashboard-navbar {
+        height: 60px;
+        width: 100%;
+        position: absolute;
+        background-color: #290557;
+        display: inline-flex;
+        align-items: center;
+        flex-wrap: wrap;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+
+    #logo-section {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 10px;
+    }
+
+    #translate-section {
+        border: #290557 1px solid;
+        width: -webkit-fill-available;
+        height: 300px;
+        position: absolute;
+        left: 30%;
+        top: 60px;
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    #logo{
+        height: 50px;
+        width: 50px;
+        background-color: #7000ff;
+        border-radius: 50%;
+    }
+
+    input[type=search] {
+        width: 40%;
+        height: 40px;
+        border-radius: 7px;
+        padding: 10px;
+    }
+
+    #mode-change {
+        width: 30px;
+        height: 20px;
+    }
+
+    #upload-video {
+        width: 50%;
+        height: -webkit-fill-available;
+        background-color: bisque;
+        position: relative;
+        top: 50%;
+    }
+    
+    #download-video {
+        width: 50%;
+        height: -webkit-fill-available;
+        background-color: #7000ff;
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+</style>
+
+<body>
+    <div id="dashboard-navbar">
+        <div id="logo-section">
+            <div id="logo"></div>
+            <div id="site-name">Site Name</div>
+        </div>
+        <div id="search-bar">
+            <input type="search" name="videosearch" id="video-search">
+        </div>
+        <div id="mode-change"></div>
+    </div>
+    <div id="main-body">
+        <div class="sidebar">
+            <img class="userIcon" src="3a31154fdc40bd17bfa9e4e86bfbad5b.jpg" alt="#">
+            <div class="userName">USER</div>
+            <div class="userOptions">
+                <div id="option-dashboard">Dashboard</div>
+                <div id="option-uploads">Uploads</div>
+                <div id="option-translate">Translate</div>
+                <div id="option-gopro">Go Pro</div>
+            </div>
+        </div>
+        <div id="translate-section">
+            <div id="upload-video"></div>
+            <div id="download-video"></div>
+        </div>
+    </div>
+</body>
+
+</html>

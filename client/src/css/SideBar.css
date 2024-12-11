@@ -1,0 +1,85 @@
+#main-body {
+    top: 80px;
+    position: absolute;
+    height: 100%;
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+
+
+.userOptions div {
+    margin: 15px;
+    width: inherit;
+    padding: 10px;
+    border-radius: 7px;
+    font-size: 1em;
+    background-color: #3b6052;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: all 0.6s;
+}
+
+.userOptions div:hover {
+    background-color: #ebe3f5;
+    color: #290557;
+    transition: all 0.6s;
+}
+
+.userIcon {
+    display: block;
+    margin: 0 auto;
+    padding: 58px 0 0 0;
+    max-width: 66px;
+    max-height: 66px;
+}
+
+.userName {
+    color: white;
+    font-style: italic;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 19px 0;
+    text-align: center;
+}
+
+#mode-change {
+    width: 30px;
+    height: 20px;
+}
+
+#upload-video {
+    width: 50%;
+    height: 100%;
+    background-color: rgb(255, 255, 255);
+    position: relative;
+}
+
+#download-video {
+    width: 50%;
+    height: 100%;
+    background-color: #7000ff;
+    position: relative;
+}
+
+#translate-section {
+    border: #290557 1px solid;
+    width: 100%;
+    height: 300px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#action-section {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: min(30%,250px);
+    display: flex;
+    flex-wrap: wrap;
+}

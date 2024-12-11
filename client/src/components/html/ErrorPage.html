@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            outline: 0;
+            border: 0;
+            padding: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+
+        body {
+            width: 100vw;
+            height: 100vh;
+        }
+
+        #err-context{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        #err404 {
+            font-size: xx-large;
+        }
+
+        #errmsg {
+            color: rgba(0, 0, 0, 0.628);
+        }
+
+        #err-action {
+            color: rgb(79, 164, 255);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="err-context">
+        <div id="err404"><strong><h1>404</h1></strong></div>
+        <div id="errmsg-header"><h3>OOPS! PAGE NOT BE FOUND</h3></div><br/>
+        <div id="errmsg">Sorry but the page you are looking for does not exist, have been removed. name changed or is temporarily unavailable</div><br/>
+        <div id="err-action"><h4>Back to Home page</h4></div>
+    </div>
+</body>
+
+</html>

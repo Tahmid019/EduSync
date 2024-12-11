@@ -1,0 +1,14 @@
+#upload-section-no-video {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+#browse-vid-btn {
+    background-color: black;
+    color: white;
+    padding: 10px 30px 10px 30px;
+    border: 1px solid;
+    border-radius: 10px;
+}
