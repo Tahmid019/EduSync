@@ -1,0 +1,12 @@
+# Ignore node_modules directory
+client/node_modules/
+
+# Ignore environment files
+client/.env
+
+# Ignore log files
+client/*.log
+
+# Ignore temporary files
+client/*.tmp
+
