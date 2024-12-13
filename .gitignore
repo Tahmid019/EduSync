@@ -5,6 +5,7 @@
 *.txt
 *.py[cod]
 *.bin
+*.zip
 
 #directories
 /app_ver/Wav2Lip
