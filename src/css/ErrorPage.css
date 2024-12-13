@@ -1,0 +1,22 @@
+#err-context{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-image: url(../images/error.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: right;
+}
+
+#err404 {
+    font-size: xx-large;
+}
+
+#errmsg {
+    color: rgba(0, 0, 0, 0.628);
+}
+
+#err-action {
+    color: rgb(79, 164, 255);
+}

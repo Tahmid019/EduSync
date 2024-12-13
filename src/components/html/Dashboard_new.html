@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            outline: 0;
+        }
+
+        body {
+            height: 100vh;
+            width: 100vw;
+        }
+
+        #nav-bar {
+            position: fixed;
+            width: 100vw;
+            background-color: darkgreen;
+            height: 60px;
+            display: flex;
+        }
+
+        main {
+            height: auto;
+            display: flex;
+        }
+
+        #sidebar {
+            width: 300px;
+            background-color: green;
+            height: 100vh;
+        }
+    </style>
+</head>
+<body>
+    <div id="nav-bar"></div>
+    <main>
+        <div id="sidebar"></div>
+        <div id="content-main"></div>
+    </main>
+</body>
+</html>
