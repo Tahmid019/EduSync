@@ -1,0 +1,22 @@
+#misc
+*.wav
+*.mp4
+*.mp3
+*.txt
+*.py[cod]
+*.bin
+
+#directories
+/app_ver/Wav2Lip
+/app_ver/Wav2Lip (copy)
+/app_ver/Wav2Lip_old
+/app_ver/venv
+
+/Wav2Lip/__pycache__/
+
+
+#unignore
+!upload/*.wav
+!upload/*.mp4
+!upload/*.mp3
+!tanscriptions/*.txt
