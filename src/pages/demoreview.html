@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            border: 0;
+            padding: 0;
+            outline: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+
+        body {
+            height: 100vh;
+            width: 100vw;
+            background-color: blueviolet;
+        }
+
+        #demo-filters-section {
+            margin: 10px 5vw;
+            width: auto;
+            background-color: aquamarine;
+            padding: 10px;
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            column-gap: 50px;
+            border-radius: 10px;
+        }
+
+        select {
+            background-color: transparent;
+        }
+
+        option {
+            padding: 30px;
+            min-width: 200px;
+        }
+
+        option[value='en'] {
+            display: none;
+        }
+
+        #vid-display {
+            display: flex;
+            justify-content: center;
+        }
+
+        #vid-card-review {
+            height: max-content;
+            width: 90vw;
+            border: 1px solid black;
+            border-radius: 10px;
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+
+
+        #vid-card-review>div:not(div:nth-child(3)) {
+            min-width: 300px;
+            width: 30%;
+            background-color: black;
+            border: 1px solid black;
+            border-radius: 8px;
+        }
+
+        #vid-card-review>div:nth-child(3) {
+            border: 1px solid black;
+            min-width: 400px;
+            width: inherit;
+            border-radius: 8px;
+        }
+
+        #src-vid {
+            min-height: 200px;
+        }
+
+        #vid-card-review>div:not(div:nth-child(3))>video {
+            height: 100%;
+            width: 100%;
+        }
+
+        #tr-vid {
+            min-height: 200px;
+        }
+
+        #review-vid {
+            display: flex;
+            min-height: 200px;
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+            align-items: center;
+        }
+
+        #review-vid>div {
+            min-width: 20%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        @media screen and (max-width: 850px) {
+            #vid-card-review {
+                flex-wrap: wrap;
+            }
+
+
+            #vid-card-review>div:not(div:nth-child(3)) {
+                width: 45%;
+                border: 1px solid black;
+                border-radius: 8px;
+            }
+        }
+
+        @media screen and (min-width: 1200px) {
+            #vid-card-review {
+                flex-wrap: nowrap;
+            }
+
+
+            #vid-card-review>div:not(div:nth-child(3)) {
+                width: 45%;
+                border: 1px solid black;
+                border-radius: 8px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="demo-filters-section">
+        <div id="f-sr-lang">
+            <span>Source Language : </span><br>
+            <select name="srlang" id="sr-vid-lang">
+                <option value="">--Choose--</option>
+                <option value="en">English</option>
+                <option value="bn">Bengali</option>
+                <option value="hi">Hindi</option>
+                <option value="te">Telegu</option>
+                <option value="ne">Nepali</option>
+            </select>
+        </div>
+        <div id="f-dest-lang">
+            <span>Translation Language : </span><br>
+            <select name="destlang" id="dest-vid-lang">
+                <option value="">--Choose--</option>
+                <option value="en">English</option>
+                <option value="bn">Bengali</option>
+                <option value="hi">Hindi</option>
+                <option value="te">Telegu</option>
+                <option value="ne">Nepali</option>
+            </select>
+        </div>
+        <button id="btn-submit">Apply filters</button>
+    </div>
+    <div id="vid-display">
+        <div id="vid-card-review">
+            <div id="src-vid">
+                <video id="srcvid" src="./engvid (1).mp4" controls></video>
+            </div>
+            <div id="tr-vid">
+                <video id="srcvid" src="./deepgram_final.mp4" controls></video>
+            </div>
+            <div id="review-vid">
+                <div id="lip-star1">
+                    <div id="lip-label">Lip Sync Qulity</div>
+                    <div id="star-cnt">
+                        <span id="star1">&bigstar;</span>
+                        <span id="star2">&bigstar;</span>
+                        <span id="star3">&bigstar;</span>
+                        <span id="star4">&bigstar;</span>
+                        <span id="star5">&bigstar;</span>
+                    </div>
+                </div>
+                <div id="tr-star2">
+                    <div id="tr-label">Translation Qulity</div>
+                    <div id="star-cnt">
+                        <span id="star1">&bigstar;</span>
+                        <span id="star2">&bigstar;</span>
+                        <span id="star3">&bigstar;</span>
+                        <span id="star4">&bigstar;</span>
+                        <span id="star5">&bigstar;</span>
+                    </div>
+                </div>
+                <div id="aud-star3">
+                    <div id="aud-label">Audio Qulity</div>
+                    <div id="star-cnt">
+                        <span id="star1">&bigstar;</span>
+                        <span id="star2">&bigstar;</span>
+                        <span id="star3">&bigstar;</span>
+                        <span id="star4">&bigstar;</span>
+                        <span id="star5">&bigstar;</span>
+                    </div>
+                </div>
+                <div id="all-star4">
+                    <div id="all-label">Overall Qulity</div>
+                    <div id="star-cnt">
+                        <span id="star1">&bigstar;</span>
+                        <span id="star2">&bigstar;</span>
+                        <span id="star3">&bigstar;</span>
+                        <span id="star4">&bigstar;</span>
+                        <span id="star5">&bigstar;</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

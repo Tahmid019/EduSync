@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            outline: 0;
+        }
+
+        #trans-vid {
+            display: flex;
+        }
+
+        #trans-vid>div {
+            min-width: 260px;
+            height: 600px;
+            padding: 10px;
+            width: 50%;
+            border: 1px solid black;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        input[type='file'] {
+            display: none;
+        }
+
+        form {
+            height: auto;
+            width: 100%;
+            padding: 20px;
+            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        label[for='upvid'],
+        #up-btn,
+        #down-btn {
+            width: auto;
+            height: auto;
+            text-align: center;
+            border: 1px solid black;
+            border-radius: 8px;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        #drop_zone {
+            border: 5px solid blue;
+            width: 200px;
+            height: 100px;
+        }
+
+        #upload-section,
+        #downvid {
+            min-height: 250px !important;
+            border-radius: 10px;
+            width: 50%;
+            background-color: black;
+        }
+
+        video {
+            width: 100% !important;
+            height: 100% !important;
+        }
+
+        #down-btn {
+            margin-top: 10px;
+        }
+
+        select {
+            height: 100%;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        @media screen and (max-width: 800px) {
+            #trans-vid {
+                flex-direction: column;
+            }
+
+            #trans-vid>div {
+                width: auto !important;
+            }
+        }
+    </style>
+    <script>
+        function dropHandler(ev) {
+            console.log("File(s) dropped");
+
+            // Prevent default behavior (Prevent file from being opened)
+            ev.preventDefault();
+
+            if (ev.dataTransfer.items) {
+                // Use DataTransferItemList interface to access the file(s)
+                [...ev.dataTransfer.items].forEach((item, i) => {
+                    // If dropped items aren't files, reject them
+                    if (item.kind === "file") {
+                        const file = item.getAsFile();
+                        console.log(`… file[${i}].name = ${file.name}`);
+                    }
+                });
+            } else {
+                // Use DataTransfer interface to access the file(s)
+                [...ev.dataTransfer.files].forEach((file, i) => {
+                    console.log(`… file[${i}].name = ${file.name}`);
+                });
+            }
+        }
+        function dragOverHandler(ev) {
+            console.log("File(s) in drop zone");
+
+            // Prevent default behavior (Prevent file from being opened)
+            ev.preventDefault();
+        }
+
+    </script>
+</head>
+
+<body>
+    <div id="cnt-main">
+        <div id="trans-vid">
+            <div id="up-vid">
+                <div id="upload-section">
+                    <video src=""></video>
+                </div>
+                <form action="">
+                    <div id="file-section">
+                        <select id="language-button" value={destLang} onChange={handleLangChange}>
+                            <option value="">Source Language</option>
+                            <option value="en">English</option>
+                            <option value="bn">Bengali</option>
+                            <option value="hi">Hindi</option>
+                            <option value="ta">Tamil</option>
+                            <option value="as">Assamese</option>
+                            <option value="gu">Gujarati</option>
+                            <option value="te">Telegu</option>
+                            <option value="or">Odia</option>
+                            <option value="kn">Kannada</option>
+                            <option value="pa">Punjabi</option>
+                            <option value="ml">Malayalam</option>
+                            <option value="mr">Marathi</option>
+                            <option value="zh">Chinese</option>
+                        </select>
+                        <select id="language-button" value={destLang} onChange={handleLangChange}>
+                            <option value="">Target Language</option>
+                            <option value="en">English</option>
+                            <option value="bn">Bengali</option>
+                            <option value="hi">Hindi</option>
+                            <option value="ta">Tamil</option>
+                            <option value="as">Assamese</option>
+                            <option value="gu">Gujarati</option>
+                            <option value="te">Telegu</option>
+                            <option value="or">Odia</option>
+                            <option value="kn">Kannada</option>
+                            <option value="pa">Punjabi</option>
+                            <option value="ml">Malayalam</option>
+                            <option value="mr">Marathi</option>
+                            <option value="zh">Chinese</option>
+                        </select>
+                        <select name="person" id="person">
+                            <option value="m">Male</option>
+                            <option value="f" selected>Female</option>
+                        </select>
+                        <label for="upvid">
+                            <input type="file" name="upvid" id="upvid" />
+                            Choose Video
+                        </label>
+                    </div>
+                    <button id="up-btn" type="Submit">Upload</button>
+                </form>
+            </div>
+            <div id="down-vid">
+                <div id="downvid">
+                    <video src="1_en.mp4"></video>
+                </div>
+                <button id="down-btn">Download</button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
