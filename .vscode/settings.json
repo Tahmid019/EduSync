@@ -1,0 +1,5 @@
+{
+    "python.analysis.extraPaths": [
+        "./Wav2Lip/app48"
+    ]
+}
