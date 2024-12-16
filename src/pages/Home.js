@@ -5,7 +5,7 @@ import "../css/main.css"
 import { defer, Link } from 'react-router-dom'
 import { useRef } from 'react';
 // import "../js/script.js"
-import HomeBg from "../components/images/HomePage_Background.jpeg"
+import HomeBg from "../components/images/HomePage_bg2.jpeg"
 import Videofile from "../components/assets/video/demo-video.mp4"
 import CloseIcon from "../images/close-icon.jpg"
 import _4Dots from "../images/4-dots.jpg"
