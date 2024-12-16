@@ -1,7 +1,7 @@
 import React from 'react'
 import "../css/TopNavbar.css"
 import "../css/main.css"
-import LogoHeader from "../components/svgs/Logo.svg"
+import LogoHeader from "../components/svgs/logo2.svg"
 import { useNavigate, Link } from 'react-router-dom'
 
 function TopNavbar() {

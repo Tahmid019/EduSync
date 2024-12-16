@@ -20,7 +20,7 @@ import discover1 from "../components/assets/img/discover1.jpeg"
 import discover2 from "../components/assets/img/discover2.jpeg"
 import discover3 from "../components/assets/img/discover3.jpeg"
 import discover4 from "../components/assets/img/discover4.jpeg"
-import LogoHeader from "../components/svgs/Logo.svg"
+import LogoHeader from "../components/svgs/logo2.svg"
 
 
 function NavBar() {
@@ -121,10 +121,19 @@ function NavBar() {
         <div>
             <nav className="navbar" id='navbar-header'>
                     <div className="container flex">
-                        <Link to="/" className="navbar-brand" style={{"background" : "url("+LogoHeader+")", "height":"60px", "width":"100px", "backgroundSize":"contain", "borderRadius":"15px", "backgroundPosition":"center", "backgroundRepeat":"norepeat", "marginTop":"-10"}}>
-                            <a href="#" className="nav__logo">
-                            </a>
-                        </Link>
+                    <Link to="/" className="navbar-brand">
+                        <img 
+                            src={LogoHeader} 
+                            alt="Logo" 
+                            style={{
+                                height: "60px",
+                                width: "100px",
+                                borderRadius: "15px",
+                                objectFit: "contain",
+                                marginTop: "-10px",
+                            }} 
+                        />
+                    </Link>
                         <button type="button" className="navbar-show-btn" onClick={onWindowLoad}>
                             <i className="ri-function-line" style={{ "color": "var(--light-color)" }}></i>
                         </button>
