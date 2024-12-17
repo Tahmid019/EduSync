@@ -31,7 +31,7 @@ function abt() {
                     <div id="team-details">
                         <div id="team1-cards">
                             <div id="cards-a">
-                                <div id="card1">
+                                {/* <div id="card1">
                                     <div id="tm-img">
                                         <div id="mainak"></div>
                                     </div>
@@ -56,7 +56,7 @@ function abt() {
                                         </a>
                                         </span>
                                     </div>
-                                </div>
+                                </div> */}
                                 <div id="card2">
                                     <div id="tm-img">
                                         <div id="tahmid"></div>
@@ -84,7 +84,7 @@ function abt() {
                                     </div>
                                 </div>
                             </div>
-                            <div id="cards-b">
+                            {/* <div id="cards-b">
                                 <div id="card3">
                                     <div id="tm-img">
                                         <div id="surajit"></div>
@@ -137,7 +137,7 @@ function abt() {
                                         </span>
                                     </div>
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
                         <div id="team1-works">
                             <div id="team-no">Team 1</div>

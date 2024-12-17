@@ -1,7 +1,7 @@
 import React from 'react'
 import NavBar from '../components/NavBar'
-import "../css/normalize.css"
-import "../css/main.css"
+// import "../css/normalize.css"
+// import "../css/main.css"
 import { defer, Link } from 'react-router-dom'
 import { useRef } from 'react';
 // import "../js/script.js"
@@ -23,7 +23,7 @@ import discover1 from "../components/assets/img/discover1.jpeg"
 import discover2 from "../components/assets/img/discover2.jpeg"
 import discover3 from "../components/assets/img/discover3.jpeg"
 import discover4 from "../components/assets/img/discover4.jpeg"
-import LogoHeader from "../components/svgs/Logo.svg"
+import LogoHeader from "../components/svgs/logo2.svg"
 
 function Home() {
     // document.body.onscroll = () => {
@@ -199,7 +199,7 @@ function Home() {
 
                 <nav className="navbar" id='navbar-header'>
                     <div className="container flex">
-                        <Link to="/" className="navbar-brand" style={{"background" : "url("+LogoHeader+")", "height":"60px", "width":"100px", "backgroundSize":"contain", "borderRadius":"15px", "backgroundPosition":"center", "backgroundRepeat":"norepeat", "marginTop":"-10",}}>
+                        <Link to="/" className="navbar-brand" style={{"background" : "url("+LogoHeader+")", "height":"60px", "width":"60px", "backgroundSize":"cover", "borderRadius":"0px", "backgroundPosition":"center", "backgroundRepeat":"norepeat", "marginTop":"-10",}}>
                         </Link>
                         <button type="button" className="navbar-show-btn" onClick={onWindowLoad}>
                             <i className="ri-function-line" style={{ "color": "var(--light-color)" }}></i>
@@ -304,8 +304,17 @@ function Home() {
                         </div>
 
                         <div className="about__img">
-                            <div className="about__img-overlay" style={{"width": "-webkit-fill-available", "height":"300px", "backgroundImage":"url("+About1Img+")","backgroundSize":"contain", "backgroundRepeat":"no-repeat","backgroundPosition":"center"}}>
-                                
+                            <div
+                                className="about__img-overlay"
+                                style={{
+                                    width: "-webkit-fill-available",
+                                    height: "300px",
+                                    backgroundImage: `url(${About1Img})`, 
+                                    backgroundSize: "contain",
+                                    backgroundRepeat: "no-repeat",
+                                    backgroundPosition: "center"
+                                }}
+                            >
                             </div>
                         </div>
                     </div>

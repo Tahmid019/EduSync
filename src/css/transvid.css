@@ -1,11 +1,5 @@
-* {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    outline: 0;
-}
 
-main {
+#main-body main {
     display: flex;
     align-items: center;
 }
@@ -31,7 +25,7 @@ input[type='file'] {
     display: none;
 }
 
-form {
+#trans-vid form {
     height: auto;
     width: 100%;
     padding: 20px;
