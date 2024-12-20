@@ -1,7 +1,7 @@
 import os
 import speech_recognition as sr
 from gtts import gTTS
-from pydub import AudioSegment
+from pydub import AudioSegment, silence
 
 
 
@@ -53,3 +53,14 @@ def detect_non_silent_regions(audio, silence_thresh=-60, min_silence_len=1000):
         start = end_time
     if start < len(audio) / 1000:
         non_silent_ranges.append((start, len(audio) / 1000))
+        
+def split_audio(audio_path, face_intervals, output_prefix):
+    audio = AudioSegment.from_wav(audio_path)
+    split_files = []
+    for i, (start, duration, value) in enumerate(face_intervals):
+        output_path = f"{output_prefix}_fiv-{value}_{i}.wav"
+        end = start + duration
+        chunk = audio[start*1000:end*1000]  # pydub works in milliseconds
+        chunk.export(output_path, format="wav")
+        split_files.append(output_path)
+    return split_files

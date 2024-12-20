@@ -1,8 +1,12 @@
 import face_recognition
 import numpy as np
 from moviepy.editor import VideoFileClip
+import ffmpeg
+import os
+import numpy as np
+from collections import deque
 
-def remove_audio(input_video):
+def remove_audio(input_video, PROCESSED_FOLDER):
     input_stream = ffmpeg.input(input_video)
     base_name = os.path.splitext(os.path.basename(input_video))[0]
     output_video = os.path.join(PROCESSED_FOLDER, f"{base_name}_no_audio.mp4")
@@ -10,64 +14,59 @@ def remove_audio(input_video):
     ffmpeg.run(output_stream, overwrite_output=True)
     return output_video
 
-#Process a single frame of video to detect face presence and update the intervals.
-def process_frame(frame, t, buffer, face_detected, start_time, buffer_size):
-
-    current_time = t
-
+def process_frame(frame, t, face_intervals, state):
+    
     # Convert frame to RGB
     rgb_frame = frame[:, :, ::-1]
     
     # Detect faces in the frame
     face_locations = face_recognition.face_locations(rgb_frame)
     
-    buffer.append(len(face_locations) > 0)
-    if len(buffer) > buffer_size:
-        buffer.pop(0)
+    # Update buffer
+    state['buffer'].append(len(face_locations) > 0)
+    if len(state['buffer']) > state['buffer_size']:
+        state['buffer'].popleft()
+    
+    # face is consistently detected in the buffer
+    detected = np.mean(state['buffer']) > 0.25
 
-    # Check if face is consistently detected in the buffer
-    detected = np.mean(buffer) > 0.25
-
-    # Update intervals based on face detection status
     if detected:
-        if face_detected is False or face_detected is None:
-            # Append interval for no-face region
-            if face_detected is False:
-                intervals.append((start_time, current_time - start_time, 0))
-            # Update start time
-            start_time = current_time
-            face_detected = True
-    else:
-        if face_detected is True or face_detected is None:
-            # Append interval for face region
-            if face_detected is True:
-                intervals.append((start_time, current_time - start_time, 1))
-            # Update start time
-            start_time = current_time
-            face_detected = False
+        if not state['face_detected']:
 
-    return face_detected, start_time
+            if state['face_detected'] is False:
+                face_intervals.append((state['start_time'], t - state['start_time'], 0))
+
+            state['start_time'] = t
+            state['face_detected'] = True
+    else:
+        if state['face_detected']:
+
+            if state['face_detected'] is True:
+                face_intervals.append((state['start_time'], t - state['start_time'], 1))
+
+            state['start_time'] = t
+            state['face_detected'] = False
 
 def detect_face_intervals(video_path):
+
     clip = VideoFileClip(video_path)
     face_intervals = []
     
-    duration = clip.duration
-    face_detected = None
-    start_time = 0
-
-    # Smooth the frame processing by using a buffer
-    buffer_size = 7
-    buffer = []
-
-    # Process the video frame by frame
+    state = {
+        'face_detected': None,
+        'start_time': 0,
+        'buffer': deque(),
+        'buffer_size': 7
+    }
+    
     for t, frame in clip.iter_frames(fps=1, with_times=True, dtype='uint8'):
-        face_detected, start_time = process_frame(frame, t, buffer, face_detected, start_time, buffer_size)
+        process_frame(frame, t, face_intervals, state)
 
-    # Finalize intervals
-    if face_detected is not None:
-        face_intervals.append((start_time, duration - start_time, 1 if face_detected else 0))
-
+    # Final
+    if state['face_detected'] is not None:
+        face_intervals.append((state['start_time'], clip.duration - state['start_time'], 
+                               1 if state['face_detected'] else 0))
+    
     return face_intervals
 
 def split_video(video_path, face_intervals, output_prefix):

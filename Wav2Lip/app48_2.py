@@ -54,6 +54,9 @@ app.config['MYSQL_DB'] = 'lipsync'
 # app.config['MYSQL_PASSWORD'] = ''
 # app.config['MYSQL_DB'] = 'lipsync'
 
+# Absolute or relative path to the external directory
+VIDEO_DIRECTORY = '/Wav2Lip/processed'
+
 def get_db_connection():
     return mysql.connector.connect(
         host="localhost",
@@ -536,7 +539,7 @@ def upload_file():
                     '--checkpoint_path', 'checkpoints/wav2lip_gan.pth',
                     '--face', vid_chunks[i],
                     '--audio', aud_chunks[i],
-                    '--face_det_batch_size', '16',
+                    '--face_det_batch_size', '2',
                     '--outfile', chunk
                 ], check=True)
                 final.append(chunk)
@@ -748,6 +751,27 @@ def demouser():
         if connection.is_connected():
             cursor.close()
             connection.close()
+
+
+@app.route('/check-file', methods=['GET'])
+def check_file():
+    print(f"[[==>{request.args.get('filename')}<=== ]]")
+    filename = request.args.get('filename')
+    file_path = os.path.join(VIDEO_DIRECTORY, filename)
+    if os.path.exists(file_path):
+        print(f"File exists: {file_path}")
+        return jsonify({"exists": True}), 200
+    else:
+        print(f"File does not exist: {file_path}")
+        return jsonify({"exists": False}), 404
+
+
+@app.route('/uploads/<filename>', methods=['GET'])
+def serve_file(filename):
+    print(f"[[==>{filename}<=== ]]")
+    return send_from_directory(VIDEO_DIRECTORY, filename)
+
+
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
