@@ -1,7 +1,7 @@
 import React from 'react'
 import NavBar from '../components/NavBar'
-// import "../css/normalize.css"
-// import "../css/main.css"
+import "../css/normalize.css"
+import "../css/main.css"
 import { defer, Link } from 'react-router-dom'
 import { useRef } from 'react';
 // import "../js/script.js"
@@ -13,7 +13,7 @@ import Voice from "../images/voice.jpg"
 import Text from "../images/text.jpg"
 import ImageJpg from "../images/image.jpg"
 import Custom from "../images/custom.jpg"
-import About1Img from "../images/about.jpg"
+import About1Img from "../images/about2.jpeg"
 import Post2 from "../images/post-2.jpg"
 import Post3 from "../images/post-3.jpg"
 import Banner2 from "../images/banner-2-img.jpg"
@@ -26,83 +26,10 @@ import discover4 from "../components/assets/img/discover4.jpeg"
 import LogoHeader from "../components/svgs/logo2.svg"
 
 function Home() {
-    // document.body.onscroll = () => {
-    //     function scrollUp() {
-    //         const scrollUp = document.getElementById('scroll-up');
-    //         // When the scroll is higher than 200 viewport height, add the show-scroll class to the a tag with the scroll-top class
-    //         if (window.scrollY >= 200) scrollUp.classList.add('show-scroll');
-    //         else scrollUp.classList.remove('show-scroll')
-    //     }
-    //     const sections = document.querySelectorAll('section[id]')
-    //     function scrollActive() {
-    //         const scrollY = window.pageYOffset
 
-    //         sections.forEach(current => {
-    //             const sectionHeight = current.offsetHeight
-    //             const sectionTop = current.offsetTop - 50;
-    //             const sectionId = current.getAttribute('id')
-
-    //             if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
-    //                 document.querySelector('.nav__menu a[href*=' + sectionId + ']').classList.add('active-link')
-    //             } else {
-    //                 document.querySelector('.nav__menu a[href*=' + sectionId + ']').classList.remove('active-link')
-    //             }
-    //         })
-    //     }
-    //     /*==================== SHOW MENU ====================*/
-    //     const navMenu = document.getElementById('nav-menu'),
-    //         navToggle = document.getElementById('nav-toggle'),
-    //         navClose = document.getElementById('nav-close')
-
-    //     /*===== MENU SHOW =====*/
-    //     /* Validate if constant exists */
-    //     if (navToggle) {
-    //         navToggle.onclick = function () {
-    //             navMenu.classList.add('show-menu');
-    //         }
-    //     }
-
-    //     /*===== MENU HIDDEN =====*/
-    //     /* Validate if constant exists */
-    //     if (navClose) {
-    //         navClose.onclick = function () {
-    //             navMenu.classList.remove('show-menu');
-    //         }
-    //     }
-
-    //     /*==================== REMOVE MENU MOBILE ====================*/
-    //     const navLink = document.querySelectorAll('.nav__link')
-
-    //     function linkAction() {
-    //         const navMenu = document.getElementById('nav-menu')
-    //         // When we click on each nav__link, we remove the show-menu class
-    //         navMenu.classList.remove('show-menu')
-    //     }
-    //     navLink.forEach(n => n.onclick = linkAction)
-
-    //     /*==================== CHANGE BACKGROUND HEADER ====================*/
-    //     function scrollHeader() {
-    //         const header = document.getElementById('header')
-    //         // When the scroll is greater than 100 viewport height, add the scroll-header class to the header tag
-    //         if (window.scrollY >= 100) header.classList.add('scroll-header');
-    //         else header.classList.remove('scroll-header')
-    //     }
-    //     window.onscroll = function () {
-    //         scrollHeader();
-    //         scrollUp();
-    //         scrollActive();
-    //     }
-    // }
 
     function onWindowLoad() {
-        // document.body.onscroll = () => {
-        //     if (document.getElementById('header-inner').scrollTop >= 100) {
-        //         document.getElementById('navbar-header').style.backgroundColor = 'white'
-        //     }
-        //     if (document.getElementById('header-inner').scrollTop <= 100) {
-        //         document.getElementById('navbar-header').style.backgroundColor = 'white'
-        //     }
-        // }
+
         const navbarShowBtn = document.querySelector('.navbar-show-btn');
         const navbarCollapseDiv = document.querySelector('.navbar-collapse');
         const navbarHideBtn = document.querySelector('.navbar-hide-btn');
@@ -179,17 +106,6 @@ function Home() {
         }
         // ended, when the video ends
         videoFile.addEventListener('ended', finalVideo)
-
-
-
-        // function scrollHeader() {
-        //     const header = document.getElementById('header')
-        //     // When the scroll is greater than 100 viewport height, add the scroll-header class to the header tag
-        //     if (this.scrollY >= 100) header.style.backgroundColor = "white !important"; else header.classList.remove('scroll-header')
-        // }
-        // document.body.onscroll = () => {
-        //     scrollHeader()
-        // }
 
     }
 
@@ -307,8 +223,9 @@ function Home() {
                             <div
                                 className="about__img-overlay"
                                 style={{
-                                    width: "-webkit-fill-available",
-                                    height: "300px",
+                                    // width: "-webkit-fill-available",
+                                    width: "100%",
+                                    height: "500px",
                                     backgroundImage: `url(${About1Img})`, 
                                     backgroundSize: "contain",
                                     backgroundRepeat: "no-repeat",
