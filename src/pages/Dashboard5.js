@@ -91,13 +91,15 @@ function Dashboard() {
         formData.append('u_mail_id', getCookie('usrmail'));
         formData.append('utc_str', utcStr);
 
+        pollForFile(utcStr);
+
         try {
             const response = await axios.post('/upload', formData, {
                 headers: { 'Content-Type': 'multipart/form-data' },
             });
             console.log(response.data);
             setVideoUrl(''); // Clear previous video URL
-            pollForFile(utcStr); // Start polling
+            // pollForFile(utcStr); // Start polling
         } catch (error) {
             console.error('Error uploading file', error);
         }
@@ -109,7 +111,7 @@ function Dashboard() {
         const interval = setInterval(async () => {
             try {
                 console.log(`Checking for file: ${filename}`);
-                const response = await axios.get(`http://<backend-server>/check-file?filename=${filename}`);
+                const response = await axios.get(`http://127.0.0.1:5001/check-file?filename=${filename}`);
                 if (response.status === 200) {
                     console.log(`File found: ${filename}`);
                     setVideoUrl(`http://127.0.0.1:5001/uploads/${filename}`); // Replace with actual video URL
