@@ -1,16 +1,10 @@
-#======================app43.py==========================
-
-
-#=====app40.py========
-
-
-
+#=====app 47========
 import time
 from deep_translator import GoogleTranslator
 from flask import Flask, logging, request, jsonify, send_from_directory
 import os
 import speech_recognition as sr
-# import ffmpeg
+import ffmpeg
 # from googletrans import Translator
 from gtts import gTTS
 from pydub import AudioSegment, silence
@@ -52,26 +46,28 @@ app.config['RESULTS'] = RESULTS
 
 # MySQL configurations
 app.config['MYSQL_HOST'] = 'localhost'
-app.config['MYSQL_USER'] = 'nitsilchar'
-app.config['MYSQL_PASSWORD'] = 'TAR0HA=#UMF_'
+app.config['MYSQL_USER'] = 'root'
+app.config['MYSQL_PASSWORD'] = ''
 app.config['MYSQL_DB'] = 'lipsync'
 # app.config['MYSQL_HOST'] = 'localhost'
 # app.config['MYSQL_USER'] = 'root'
 # app.config['MYSQL_PASSWORD'] = ''
 # app.config['MYSQL_DB'] = 'lipsync'
 
+# Absolute or relative path to the external directory
+VIDEO_DIRECTORY = '/Wav2Lip/processed'
+
 def get_db_connection():
     return mysql.connector.connect(
         host="localhost",
-        user="nitsilchar",
-        password="TAR0HA=#UMF_",
+        user="root",
+        password="",
         database="lipsync"
         # host="localhost",
         # user="",
         # password="",
         # database="lipsync"
 )
-
 
 def transcribe_audio(file_path, sr_lang, retries=3):
     recognizer = sr.Recognizer()
@@ -102,19 +98,23 @@ def detect_language(text):
 def convert_mp4_to_wav(mp4_file_path):
     try:
         base_name = os.path.splitext(os.path.basename(mp4_file_path))[0]
+        print(f"{PROCESSED_FOLDER} + {base_name}")
         wav_file_path = os.path.join(PROCESSED_FOLDER, f"{base_name}.wav")
-        ffmpeg.input(mp4_file_path).output(wav_file_path, format='wav').run(overwrite_output=True)
+        if os.path.exists(mp4_file_path):
+            try:
+                ffmpeg.input(mp4_file_path).output(wav_file_path, format='wav').run(overwrite_output=True)
+                print("Conversion successful!")
+            except Exception as e:
+                print(f"FFmpeg error: {e}")
+        else:
+            print(f"File not found: {mp4_file_path}")
         return wav_file_path
-    except ffmpeg.Error as e:
-        print(f"ffmpeg error: {e.stderr.decode()}")
+    except Exception as e:
+        print(f"ffmpeg error: {e}")
     return None
 
 def translate_text_file(input_text, dest_language, src_lang):
     try:
-        # detected_lang = src_lang 
-        # if(detect_language != src_language):
-        #         detected_lang = detect_language(input_text)
-
         translated = GoogleTranslator(source=src_lang, target=dest_language).translate(input_text)
         print(translated)
         return translated, src_lang
@@ -376,36 +376,7 @@ def up_f(file_path, sr_lang, dest_lang, utc_str, flag):
                     continue
             except Exception as subprocess_er:
                 print(f"[[Error]]: {subprocess_er}")
-                # try:
-                #     print("Calling merge_audio_with_silent_video()")
-                #     # Merge new audio with silent video
-                #     merge_audio_with_silent_video(silent_video_path, final_audio_path, final_video_path)
-                # except Exception as merge_error:
-                #     print(f"[[Error]]: {merge_error}")
-          
-        
-        # try:
-        #     print("Calling merge_audio_with_silent_video()")
-        #     # Merge new audio with silent video
-        #     merge_audio_with_silent_video(silent_video_path, final_audio_path, final_video_path)
-        # except Exception as merge_error:
-        #     print(f"[[Error]]: {merge_error}")
-        
-        
-        #ONNNNNNN
-        # try: 
-        #     print("Calling Subprocess ....")
-        #     subprocess.run([
-        #         'python3', 'inference.py',
-        #         '--checkpoint_path', 'checkpoints/wav2lip_gan.pth',
-        #         '--face', silent_video_path,
-        #         '--audio', final_audio_path,
-        #         '--outfile', final_video_path
-        #     ])
-        # except Exception as subprocess_er:
-        #     print(f"[[Error]]: {subprocess_er}")
-        
-        
+                
         # Save the transcription to a file
         print("Saving transcription to file")
         transcription_file_path = os.path.join(TRANSCRIPTIONS_FOLDER, f"{os.path.splitext(file_path)[0]}_{utc_str}_transcription.txt")
@@ -421,13 +392,6 @@ def up_f(file_path, sr_lang, dest_lang, utc_str, flag):
     except Exception as up:
         print(f"[ ERROR ]: {up}")
         return []
-    
-# def find_file(directory, filename):
-#     for root, dirs, files in os.walk(directory):
-#         if filename in files:
-#             print(f"[[==>{os.path.join(root,filename)}<=== ]]")
-#             return True
-#         return False
 
 def find_file(directory, filename):
     for root, dirs, files in os.walk(directory):
@@ -435,45 +399,6 @@ def find_file(directory, filename):
             print(f"[[==>{os.path.join(root, filename)}<=== ]]")
             return True
     return False
-
-# from moviepy.editor import VideoFileClip, concatenate_videoclips
-# import os
-# from flask import jsonify
-
-# def process_videos(final, PROCESSED_FOLDER, utc_str):
-#     clips = []
-#     print("=======vid clipping...")
-#     for video in final:
-#         print(f"clip === {video}")
-#         try:
-#             with VideoFileClip(video) as clip:
-#                 # Check if the clip has any frames
-#                 if clip.duration > 0:
-#                     # clips.append(clip)
-#                     clips.append(clip)
-#                     print(f"Clip loaded: {video}, vid.filename: {os.path.basename(video)}, duration: {clip.duration}")
-#                 else:
-#                     print(f"Clip {video} is empty or corrupted.")
-#         except Exception as cl:
-#             print(f"Error processing video {video}: {cl}")
-#             return jsonify({'error': f"Error processing video {video}: {cl}"}), 500
-
-#     if not clips:
-#         print("No valid clips to concatenate.")
-#         return jsonify({'error': 'No valid clips to concatenate'}), 500
-
-#     try:
-#         print(f"=======Concat : {clips} ...{clips[0]}")
-#         final_clip = concatenate_videoclips(clips)
-#         final_video_path = os.path.join(PROCESSED_FOLDER, f"merged_final_video_{utc_str}.mp4")
-#         final_clip.write_videofile(final_video_path)
-#         print(f"Final clip saved to: {final_video_path}")
-#         return jsonify({'message': 'Video concatenation successful', 'path': final_video_path}), 200
-#     except Exception as e:
-#         print(f"Error during concatenation: {e}")
-#         return jsonify({'error': f"Error during concatenation: {e}"}), 500
-
-
 
 def process_videos(final, PROCESSED_FOLDER, utc_str):
     input_files = []
@@ -514,14 +439,6 @@ def process_videos(final, PROCESSED_FOLDER, utc_str):
         # return jsonify({'message': 'Video concatenation successful', 'path': concat_file_path}), 200
     except ffmpeg.Error as e:
         print(f"Error during concatenation: {e}")
-        # return jsonify({'error': f"Error during concatenation: {e}"}), 500
-    # finally:
-    #     # Clean up the temporary input files list
-    #     if os.path.exists('input_files.txt'):
-    #         os.remove('input_files.txt')
-
-# Example call to the function
-# process_videos(['video1.mp4', 'video2.mp4'], 'processed_folder', '2024-06-27T12-00-00')
 
 
 
@@ -563,8 +480,9 @@ def upload_file():
         
 
         # Convert video to audio
-        print("=======calling con mp4 to wav...")
+        print("===1====calling con mp4 to wav...")
         audio_file_path = convert_mp4_to_wav(file_path)
+        print("com")
         if audio_file_path is None:
             return jsonify({'error': 'Failed to convert video to audio'}), 5002
 
@@ -630,28 +548,14 @@ def upload_file():
                     '--outfile', chunk
                 ], check=True)
                 final.append(chunk)
+                print("=======subprocess over...")
                 print(f"[{i}] == > {chunk}  || {final}")
-                # try:
-                #     subprocess.run([
-                #         'python3', 'inference.py',
-                #         '--checkpoint_path', 'checkpoints/wav2lip_gan.pth',
-                #         '--face', vid_chunks[i],
-                #         '--audio', aud_chunks[i],
-                #         '--face_det_batch_size', '1',
-                #         '--outfile', chunk
-                #     ], check=True)
-                #     final.append(chunk)
-                # except Exception as subprocess_err:
-                #     merge_audio_with_silent_video(vid_chunks[i], aud_chunks[i], chunk)
-                #     final.append(chunk)
-                # print("=======sleep 3*60")
-                # # time.sleep(3*60)
-                # print("=======sleep over...")
             else:
                 print("=======Calling Merge...")
                 merge_audio_with_silent_video(vid_chunks[i], aud_chunks[i], chunk)
                 final.append(chunk)
                 print(final)
+                print("=======Merge over...")
         # final_video_path = os.path.join(f"{utc_str}.mp4")
                 
         final_video = process_videos(final, PROCESSED_FOLDER, utc_str)
@@ -659,41 +563,8 @@ def upload_file():
         
         final_video_path = os.path.join(f'{os.path.basename(final_video)}')
         print(final_video_path)
+    
         
-
-        # clips = []
-        # print("=======vid clipping...")
-        # for video in final:
-        #     print(f"clip === {video}")
-        #     try:
-        #         print("1")
-        #         clip = VideoFileClip(video)
-        #         print("2")
-        #         clips.append(clip)
-        #         print("3")
-        #     except Exception as cl:
-        #         print(f"Error: {cl}")
-        #         return 500
-        #     print("4")
-        # print("5")
-        # print(clips)
-        # print(final_clip)
-        # if clips:
-        #     print("7")
-        #     print(f"=======Concat : {clips} ...\n {final_clip}")
-        #     final_clip = concatenate_videoclips(clips)
-        #     print("8")
-        #     final_video_path = os.path.join(PROCESSED_FOLDER, f"merged_final_video_{utc_str}.mp4")
-        #     print("9")
-        #     final_clip.write_videofile(final_video_path)
-        #     print("10")
-        #     print(f"Final clip: {final_clip}")
-        # else:
-        #     print("11")
-        #     print(f"error: NO clips to concat..500.. {clips}")
-        #     return jsonify({'error': 'No clips to concatenate'}), 500
-        
-        print("6")
         print(final_video_path)
         print(translated_text)
         
@@ -711,7 +582,7 @@ def upload_file():
         }), 2001
 
     except Exception as e:
-        return jsonify({'error': str(e)}), 5004
+        return jsonify({'error': str(e)}), print(f"Try err: {e}"), 5004
     
 @app.route('/video/<filename>')
 def serve_video(filename):
@@ -868,6 +739,27 @@ def demouser():
         if connection.is_connected():
             cursor.close()
             connection.close()
+
+
+@app.route('/check-file', methods=['GET'])
+def check_file():
+    print(f"[[==>{request.args.get('filename')}<=== ]]")
+    filename = request.args.get('filename')
+    file_path = os.path.join(VIDEO_DIRECTORY, filename)
+    if os.path.exists(file_path):
+        print(f"File exists: {file_path}")
+        return jsonify({"exists": True}), 200
+    else:
+        print(f"File does not exist: {file_path}")
+        return jsonify({"exists": False}), 404
+
+
+@app.route('/uploads/<filename>', methods=['GET'])
+def serve_file(filename):
+    print(f"[[==>{filename}<=== ]]")
+    return send_from_directory(VIDEO_DIRECTORY, filename)
+
+
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)

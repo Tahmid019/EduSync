@@ -17,7 +17,7 @@ import subprocess
 from langdetect import detect, LangDetectException
 
 import face_recognition
-from moviepy.editor import VideoFileClip, concatenate_videoclips
+from moviepy import VideoFileClip, concatenate_videoclips
 from moviepy.tools import subprocess_call
 import ffmpeg
 from pydub import AudioSegment
