@@ -539,8 +539,9 @@ def upload_file():
                     '--checkpoint_path', 'checkpoints/wav2lip_gan.pth',
                     '--face', vid_chunks[i],
                     '--audio', aud_chunks[i],
-                    '--face_det_batch_size', '8',
-                    '--outfile', chunk
+                    '--face_det_batch_size', '2',
+                    '--outfile', chunk,
+                    '--resize_factor', '2'
                 ])
                 
                 # Monitor the output file generation
