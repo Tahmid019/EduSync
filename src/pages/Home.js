@@ -136,7 +136,7 @@ function Home() {
                                     <a href="#discover" className="nav-link">Service</a>
                                 </li>
                                 <li className="nav-item">
-                                    <a href="#demo" className="nav-link">Demo</a>
+                                    <a href="/demo" className="nav-link">Demo</a>
                                 </li>
                                 <li className="nav-item">
                                     <Link to="/ourteam" className="nav-link">Our Team</Link>
