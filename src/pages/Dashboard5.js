@@ -105,16 +105,20 @@ function Dashboard() {
         }
     };
 
+    const backendURL = "http://192.168.151.162:5001"; 
+
     const pollForFile = (utcStr) => {
         const filename = `merged_final_video_${utcStr}.mp4`;
         console.log(`Polling for file: ${filename}`);
+        
         const interval = setInterval(async () => {
             try {
                 console.log(`Checking for file: ${filename}`);
-                const response = await axios.get(`http://127.0.0.1:5001/check-file?filename=${filename}`);
+                const response = await axios.get(`${backendURL}/check-file?filename=${filename}`);
+                
                 if (response.status === 200) {
                     console.log(`File found: ${filename}`);
-                    setVideoUrl(`http://127.0.0.1:5001/uploads/${filename}`); // Replace with actual video URL
+                    setVideoUrl(`${backendURL}/uploads/${filename}`);
                     setLoading(false);
                     clearInterval(interval); // Stop polling
                     setPollInterval(null);
@@ -126,6 +130,7 @@ function Dashboard() {
 
         setPollInterval(interval);
     };
+
 
     return (
         <div>
